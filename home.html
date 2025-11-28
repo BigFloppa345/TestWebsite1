@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            background: #222;
+            color: #fff;
+            font-family: Arial, sans-serif;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            background: #2b2b2b;
+            padding: 30px;
+            width: 350px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.6);
+        }
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+
+        .email {
+            font-size: 14px;
+            margin-bottom: 25px;
+            color: #bbb;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            background: #b02727;
+            color: #fff;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #c03131;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Welcome!</h1>
+
+    <p class="email" id="emailText"></p>
+
+    <button onclick="logout()">Logout</button>
+</div>
+
+<script>
+    // если пользователь НЕ вошёл — не допускаем его на home.html
+    if (localStorage.getItem("logged") !== "true") {
+        window.location.href = "index.html"; // возвращаем на логин
+    }
+
+    // выводим email
+    const email = localStorage.getItem("email");
+    document.getElementById("emailText").textContent =
+        "You are logged in as: " + email;
+
+    function logout() {
+        localStorage.removeItem("logged");
+        localStorage.removeItem("email");
+
+        window.location.href = "index.html";
+    }
+</script>
+
+</body>
+</html>
