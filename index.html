@@ -6,7 +6,6 @@
     <title>Test Website</title>
     <link rel="stylesheet" href="style.css" />
     <style>
-        /* Минимальные стили, чтобы протестировать поведение */
         body {
             font-family: Arial, sans-serif;
             background: #222;
@@ -39,7 +38,7 @@
         input[type="password"],
         input[type="text"] {
             width: 100%;
-            padding: 10px 38px 10px 10px; /* место справа для кнопки */
+            padding: 10px 38px 10px 10px;
             background: #1f1f1f;
             color: #fff;
             border: 1px solid #444;
@@ -47,7 +46,7 @@
             box-sizing: border-box;
         }
 
-        /* Обёртка для input + кнопки */
+
         .password-wrap {
             position: relative;
         }
@@ -101,6 +100,9 @@
 </form>
 
 <script>
+    if (localStorage.getItem("logged") === "true") {
+        window.location.href = "home.html";
+    }
     document.addEventListener('DOMContentLoaded', () => {
         const passwordInput = document.getElementById('password');
         const toggleBtn = document.getElementById('togglePassword');
@@ -113,14 +115,26 @@
         toggleBtn.addEventListener('click', () => {
             const isPassword = passwordInput.type === 'password';
             passwordInput.type = isPassword ? 'text' : 'password';
-            // меняем иконку (или можно менять класс и подставлять svg)
             toggleBtn.textContent = isPassword ? '🙈' : '👁';
         });
 
         // для разработки: предотвратить реального сабмита (удалить/изменить в проде)
         document.getElementById('loginForm').addEventListener('submit', (e) => {
             e.preventDefault();
-            alert('Не работает пока что, что ты хочешь? Динаху вообще');
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+
+            if (email === "text@example.com" && password === "1234") {
+                localStorage.setItem("logged", "true");
+                localStorage.setItem("email", email);
+
+                window.location.href = "home.html";
+
+            } else {
+                alert("Wrong email or password.");
+            }
+
         });
     });
 </script>
